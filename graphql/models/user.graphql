@@ -1,0 +1,28 @@
+type User {
+    "Unique primary key."
+    id: ID!
+
+    "Non-unique name."
+    name: String!
+
+    "Unique email address."
+    email: String!
+
+    tasks: [Task!] @hasMany
+
+    "When the email was verified."
+    email_verified_at: DateTime
+
+    "When the account was created."
+    created_at: DateTime!
+
+    "When the account was last updated."
+    updated_at: DateTime!
+}
+
+
+extend type Query {
+    users:[User!]! @paginate
+    me: User @auth
+    user(id: ID @eq): User @find
+}

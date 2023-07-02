@@ -1,0 +1,12 @@
+type Task {
+    id: ID!
+    name: String!
+    user: User! @belongsTo
+    totelUsers: Int!   @count(model: "Task")
+}
+
+
+extend type Query {
+    tasks:[Task!]! @paginate @whereAuth(relation: "user")
+    task(id: ID @eq): Task @find
+}
